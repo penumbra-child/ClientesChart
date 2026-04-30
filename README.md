@@ -4,8 +4,8 @@ Este Helm Chart permite desplegar de forma sencilla el ecosistema de **App Demo*
 
 ## Estructura del Sistema
 
-- **Frontend**: Imagen `marianaolivas/front`. Expuesto vía LoadBalancer.
-- **Backend (API)**: Imagen `marianaolivas/api`. Se comunica con MySQL internamente.
+- **Frontend**: Imagen `yurbendock/clientes-front/front`. Expuesto vía LoadBalancer.
+- **Backend (API)**: Imagen `yurbendock/clientes-backend`. Se comunica con MySQL internamente.
 - **Base de Datos**: MySQL 8.0 oficial.
 
 ---
