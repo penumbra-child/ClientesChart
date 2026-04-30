@@ -1,0 +1,36 @@
+replicaCount: 1
+
+frontend:
+  image: marianaolivas/front
+  tag: latest
+  service:
+    type: LoadBalancer
+    port: 80
+    containerPort: 3001
+  env:
+    apiUrl: "http://api-service:8080/api"
+
+api:
+  image: marianaolivas/api
+  tag: latest
+  service:
+    type: ClusterIP
+    port: 8080
+    containerPort: 3000
+  env:
+    dbPort: "3306"
+    dbName: "pui_db"
+    dbUser: "root"
+    dbPassword: "password123"
+
+mysql:
+  image: mysql
+  tag: "8.0"
+  env:
+    rootPassword: "password123"
+    database: "pui_db"
+  persistence:
+    enabled: true
+    size: 1Gi
+  service:
+    port: 3306

@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: front-deployment
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: front
+  template:
+    metadata:
+      labels:
+        app: front
+    spec:
+      containers:
+      - name: front
+        image: "{{ .Values.frontend.image }}:{{ .Values.frontend.tag }}"
+        env:
+        - name: API_URL
+          value: "{{ .Values.frontend.env.apiUrl }}"
+        ports:
+        - containerPort: {{ .Values.frontend.service.containerPort }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: front-service
+spec:
+  type: {{ .Values.frontend.service.type }}
+  selector:
+    app: front
+  ports:
+    - protocol: TCP
+      port: {{ .Values.frontend.service.port }}
+      targetPort: {{ .Values.frontend.service.containerPort }}
